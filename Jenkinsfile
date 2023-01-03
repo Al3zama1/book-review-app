@@ -20,8 +20,7 @@ pipeline {
 //                 sh '''
 //                 ./gradlew -v
 //                 '''
-
-                }
+//                 }
 
             }
         }
