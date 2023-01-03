@@ -1,7 +1,7 @@
 pipeline {
     agent {
         node {
-            label 'docker-agent-book-review-app'
+            label 'docker-agent-java17'
         }
     }
     stages {
