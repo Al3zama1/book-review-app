@@ -20,3 +20,7 @@ integration, and end-to-end testing following a test driven (TDD) approach.
 - Spring Boot backend with Java
 - Dependency on a remote REST API for fetching book information.
 - Single page application frontend with React and Typescript
+
+<p align="center">
+    <img src="./assets/review-app-diagram.png" alt="Book Review Application Architecture">
+</p>
