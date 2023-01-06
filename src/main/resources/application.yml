@@ -1,0 +1,29 @@
+spring:
+  datasource:
+    driver-class-name: org.postgresql.Driver
+    password: test
+    username: test
+    url: jdbc:postgresql://localhost:5432/book_review
+  jpa:
+    hibernate:
+      ddl-auto: validate
+    show-sql: true
+  mvc:
+    throw-exception-if-no-handler-found: true
+  devtools:
+    livereload:
+      enabled: true
+
+server:
+  port: 8081
+  error:
+    include-exception: false
+    include-stacktrace: on_param
+    include-message: always
+    include-binding-errors: always
+
+clients:
+  open-library: https://openlibrary.org
+
+sqs:
+  book-synchronization-queue: default
