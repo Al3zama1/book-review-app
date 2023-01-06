@@ -25,7 +25,7 @@ integration, and end-to-end testing following a test driven (TDD) approach.
     <img src="./assets/book-review-app-diagram.png" alt="Book Review Application Architecture">
 </p>
 
-## Project Setup
+## Local Project Setup
 
 ### Mandatory Requirements
 * Java 17
