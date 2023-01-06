@@ -31,7 +31,7 @@ integration, and end-to-end testing following a test driven (TDD) approach.
 3. Build the project `./gradlew build`
 4. Run the application with `./gradlew bootRun`
 5. Access http://localhost:8080 for the application frontend
-6. (Optional) access http://localhost:8888 for the Keycloak admin interface
+6. (Optional) access http://localhost:8888/auth for the Keycloak admin interface
 
 Default Application Users
 * duke (password `dukeduke`)
