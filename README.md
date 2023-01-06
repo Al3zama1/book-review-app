@@ -13,4 +13,10 @@ Developed a Fully Tested book review application where users can add new books a
 different users. The aim of the project is to master testing techniques for effectively carrying out unit,
 integration, and end-to-end testing following a test driven (TDD) approach.
 
-
+## Application Architecture
+- Keycloack (Open source identity and access management solution) to secure parts of the frontend and backend.
+- PostgreSQL (RDBMS) to store data in a relational database.
+- Amazon SQS (Simple Queuing Service) for asynchronous message processing.
+- Spring Boot backend with Java
+- Dependency on a remote REST API for fetching book information.
+- Single page application frontend with React and Typescript
