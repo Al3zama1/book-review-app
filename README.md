@@ -25,6 +25,54 @@ integration, and end-to-end testing following a test driven (TDD) approach.
     <img src="./assets/book-review-app-diagram.png" alt="Book Review Application Architecture">
 </p>
 
+## Running The Project Locally
+
+### Mandatory Requirements
+* Java 17
+```
+❯ java --version
+openjdk 17.0.5 2022-10-18
+OpenJDK Runtime Environment Temurin-17.0.5+8 (build 17.0.5+8)
+OpenJDK 64-Bit Server VM Temurin-17.0.5+8 (build 17.0.5+8, mixed mode)
+```
+* Docker Engine and Docker Compose
+```
+❯ docker version
+Client:
+ Cloud integration: v1.0.29
+ Version:           20.10.21
+ API version:       1.41
+ Go version:        go1.18.7
+ Git commit:        baeda1f
+ Built:             Tue Oct 25 18:01:18 2022
+ OS/Arch:           darwin/arm64
+ Context:           default
+ Experimental:      true
+
+Server: Docker Desktop 4.15.0 (93002)
+ Engine:
+  Version:          20.10.21
+  API version:      1.41 (minimum version 1.12)
+  Go version:       go1.18.7
+  Git commit:       3056208
+  Built:            Tue Oct 25 17:59:41 2022
+  OS/Arch:          linux/arm64
+  Experimental:     false
+ containerd:
+  Version:          1.6.10
+  GitCommit:        770bd0108c32f3fb5c73ae1264f7e503fe7b2661
+ runc:
+  Version:          1.1.4
+  GitCommit:        v1.1.4-0-g5fd4c4d
+ docker-init:
+  Version:          0.19.0
+  GitCommit:        de40ad0
+```
+
+### Optional Requirements:
+* Gradle >= 7.6 (the project includes the Gradle Wrapper to run the project)
+
+
 ## Running the Project Locally
 1. Make sure Docker is running
 2. Start required infrastructure to run application with`docker-compose up`
