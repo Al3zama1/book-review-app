@@ -22,5 +22,5 @@ integration, and end-to-end testing following a test driven (TDD) approach.
 - Single page application frontend with React and Typescript
 
 <p align="center">
-    <img src="./assets/review-app-diagram.png" alt="Book Review Application Architecture">
+    <img src="./assets/book-review-app-diagram.png" alt="Book Review Application Architecture">
 </p>
