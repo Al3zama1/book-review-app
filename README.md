@@ -25,7 +25,7 @@ integration, and end-to-end testing following a test driven (TDD) approach.
     <img src="./assets/book-review-app-diagram.png" alt="Book Review Application Architecture">
 </p>
 
-## Running The Project Locally
+## Project Setup
 
 ### Mandatory Requirements
 * Java 17
@@ -73,7 +73,7 @@ Server: Docker Desktop 4.15.0 (93002)
 * Gradle >= 7.6 (the project includes the Gradle Wrapper to run the project)
 
 
-## Running the Project Locally
+### Running the Project Locally
 1. Make sure Docker is running
 2. Start required infrastructure to run application with`docker-compose up`
 3. Build the project `./gradlew build`
