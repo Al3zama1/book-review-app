@@ -24,3 +24,15 @@ integration, and end-to-end testing following a test driven (TDD) approach.
 <p align="center">
     <img src="./assets/book-review-app-diagram.png" alt="Book Review Application Architecture">
 </p>
+
+## Running the Project Locally
+1. Make sure Docker is running
+2. Start required infrastructure to run application with`docker-compose up`
+3. Build the project `./gradlew build`
+4. Run the application with `./gradlew bootRun`
+5. Access http://localhost:8080 for the application frontend
+6. (Optional) access http://localhost:8888 for the Keycloak interface
+
+Default Application Users
+* duke (password `dukeduke`)
+* mike (password `mikemike`)
