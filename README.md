@@ -9,9 +9,9 @@
 
 
 ## Introduction
-Developed a Fully Tested book review application where users can add new books and write or see reviews posted by 
+Developed a fully tested book review application where users can add new books and write or see reviews posted by 
 different users. The aim of the project is to master testing techniques for effectively carrying out unit,
-integration, and end-to-end testing following a test driven (TDD) approach.
+integration, and end-to-end testing following a test driven development (TDD) approach.
 
 ## Application Architecture
 - Keycloack (Open source identity and access management solution) to secure parts of the frontend and backend.
