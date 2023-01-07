@@ -15,7 +15,6 @@ spring:
       enabled: true
 
 server:
-  port: 8081
   error:
     include-exception: false
     include-stacktrace: on_param
