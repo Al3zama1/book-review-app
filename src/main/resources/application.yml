@@ -4,6 +4,11 @@ spring:
     password: test
     username: test
     url: jdbc:postgresql://localhost:5432/book_review
+  security:
+    oauth2:
+      resourceserver:
+        jwt:
+          issuer-uri: http://localhost:8888/auth/realms/spring
   jpa:
     hibernate:
       ddl-auto: validate
@@ -13,6 +18,13 @@ spring:
   devtools:
     livereload:
       enabled: true
+
+cloud:
+  aws:
+    stack:
+      auto: false
+    region:
+      static: us-west-1
 
 server:
   error:

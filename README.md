@@ -28,7 +28,7 @@ and AWS SQS support to perform integration tests.
 - Single page application frontend with React and Typescript
 
 <p align="center">
-    <img src="./assets/book-review-app-diagram.png" alt="Book Review Application Architecture">
+    <img src="assets/images/book-review-app-diagram.png" alt="Book Review Application Architecture">
 </p>
 
 ## Local Project Setup

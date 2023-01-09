@@ -2,9 +2,9 @@ package com.example.bookreviewapp.review;
 
 import com.example.bookreviewapp.book.Book;
 import com.example.bookreviewapp.user.User;
+import jakarta.persistence.*;
 import lombok.*;
 
-import javax.persistence.*;
 import java.time.LocalDateTime;
 
 @Getter
