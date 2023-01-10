@@ -13,7 +13,7 @@ import java.util.Objects;
 @ToString
 @Builder
 @Entity
-@Table(name = "users")
+@Table(name = "_user")
 public class User {
 
     @Id

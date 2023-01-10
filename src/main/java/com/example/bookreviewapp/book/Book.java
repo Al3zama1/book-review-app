@@ -14,7 +14,6 @@ import java.util.Objects;
 @Builder
 @ToString
 @Entity
-@Table(name = "books")
 public class Book {
     @Id
     @JsonIgnore
@@ -35,6 +34,8 @@ public class Book {
 
     private String description;
 
+    private String publisher;
+
     private Long pages;
 
     @Override
@@ -45,11 +46,11 @@ public class Book {
         return Objects.equals(id, book.id) && Objects.equals(title, book.title) && Objects.equals(isbn, book.isbn) &&
                 Objects.equals(author, book.author) && Objects.equals(genre, book.genre) &&
                 Objects.equals(thumbnailUrl, book.thumbnailUrl) && Objects.equals(description, book.description) &&
-                Objects.equals(pages, book.pages);
+                Objects.equals(publisher, book.publisher) && Objects.equals(pages, book.pages);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(id, title, isbn, author, genre, thumbnailUrl, description, pages);
+        return Objects.hash(id, title, isbn, author, genre, thumbnailUrl, description, publisher, pages);
     }
 }
