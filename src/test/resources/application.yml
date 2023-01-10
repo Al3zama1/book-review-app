@@ -1,0 +1,27 @@
+spring:
+  datasource:
+    password: OVERRIDEN_BY_TEST
+    username: OVERRIDEN_BY_TEST
+    url: OVERRIDEN_BY_TEST
+#    driver-class-name: OVERRIDEN_BY_TEST
+  security:
+    oauth2:
+      resourceserver:
+        jwt:
+          issuer-uri: http://localhost:8888/auth/realms/spring
+  jpa:
+    hibernate:
+      ddl-auto: validate
+cloud:
+  aws:
+    stack:
+      auto: false
+    region:
+      static: us-west-1
+
+clients:
+  open-library:
+    base-url: https://localhost:8080/shouldNotBeUsed
+
+sqs:
+  book-synchronization-queue: default
