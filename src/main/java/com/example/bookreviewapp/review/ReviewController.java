@@ -28,16 +28,17 @@ public class ReviewController {
     }
 
     @GetMapping("/reviews/statistics")
-    public ResponseEntity<List<BookReviewStatisticResponse>> getReviewStatistics() {
-        return ResponseEntity.ok(bookReviewService.getReviewStatistics());
+    public List<BookReviewStatisticResponse> getReviewStatistics() {
+        return bookReviewService.getReviewStatistics();
     }
 
     @PostMapping("/{isbn}/reviews")
     public ResponseEntity<Void> createBookReview(@PathVariable String isbn, JwtAuthenticationToken jwt,
                                                  @RequestBody @Valid BookReviewRequest bookReviewRequest,
                                                  UriComponentsBuilder uriComponentsBuilder) {
-        Long newBookReviewId = bookReviewService.createBookReview(isbn, bookReviewRequest, jwt.getTokenAttributes()
-                .get("email").toString());
+
+        Long newBookReviewId = bookReviewService.createBookReview(isbn, bookReviewRequest,
+                jwt.getTokenAttributes().get("email").toString());
 
         UriComponents uriComponents = uriComponentsBuilder.path("/api/books/{isbn}/reviews/{reviewId}")
                 .buildAndExpand(isbn, newBookReviewId);

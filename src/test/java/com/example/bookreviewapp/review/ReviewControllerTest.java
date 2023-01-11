@@ -3,6 +3,7 @@ package com.example.bookreviewapp.review;
 import com.example.bookreviewapp.config.WebSecurityConfig;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import org.junit.jupiter.api.Test;
+import org.mockito.ArgumentCaptor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.web.servlet.WebMvcTest;
 import org.springframework.boot.test.mock.mockito.MockBean;
@@ -11,6 +12,7 @@ import org.springframework.http.MediaType;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.test.web.servlet.MockMvc;
 
+import static org.assertj.core.api.Assertions.assertThat;
 import static org.hamcrest.Matchers.containsString;
 import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.ArgumentMatchers.eq;
@@ -34,12 +36,11 @@ class ReviewControllerTest {
 
     private static final String BOOK_ISBN = "9780321160768";
     private static final String USER_EMAIL = "john@spring.io";
-    private static long BOOK_REVIEW_ID = 3L;
+    private static final String PREFERRED_USERNAME = "john";
+    private static final long BOOK_REVIEW_ID = 3L;
 
     @MockBean
     private BookReviewService bookReviewService;
-    @Autowired
-    private ObjectMapper objectMapper;
     @Autowired
     private MockMvc mockMvc;
 
@@ -66,6 +67,9 @@ class ReviewControllerTest {
         mockMvc.perform(get("/api/books/reviews"))
                 .andExpect(status().isOk())
                 .andExpect(jsonPath("$.size()", is(1)));
+
+        // Then
+        then(bookReviewService).should().getAllReviews(20, "none");
     }
 
     @Test
@@ -113,11 +117,18 @@ class ReviewControllerTest {
                 .contentType(MediaType.APPLICATION_JSON)
                 .content(requestBody)
                 .with(jwt().jwt(builder -> builder.claim("email", USER_EMAIL)
-                        .claim("preferred_username", "john"))))
+                        .claim("preferred_username", PREFERRED_USERNAME))))
                 .andExpect(status().isCreated())
                 .andExpect(header().exists("Location"))
                 .andExpect(header().string("Location", containsString("/books/%s/reviews/%s"
                         .formatted(BOOK_ISBN, expectedBookReviewId))));
+
+        // Then
+        ArgumentCaptor<String> captor = ArgumentCaptor.forClass(String.class);
+        then(bookReviewService).should().createBookReview(eq(BOOK_ISBN), any(BookReviewRequest.class), captor.capture());
+        // make sure we can correctly extract the user email from the jwt authentication token
+        assertThat(captor.getValue()).isEqualTo(USER_EMAIL);
+
     }
 
     @Test
@@ -135,7 +146,7 @@ class ReviewControllerTest {
                 .contentType(MediaType.APPLICATION_JSON)
                 .content(requestBody)
                 .with(jwt().jwt(builder -> builder.claim("email", USER_EMAIL)
-                        .claim("preferred_username", "john"))))
+                        .claim("preferred_username", PREFERRED_USERNAME))))
                 .andExpect(status().isUnprocessableEntity());
 
         // Then
