@@ -25,4 +25,9 @@ public class ReviewController {
 
         return ResponseEntity.ok(bookReviews);
     }
+
+    @GetMapping("/reviews/statistics")
+    public ResponseEntity<List<BookReviewStatisticResponse>> getReviewStatistics() {
+        return ResponseEntity.ok(bookReviewService.getReviewStatistics());
+    }
 }

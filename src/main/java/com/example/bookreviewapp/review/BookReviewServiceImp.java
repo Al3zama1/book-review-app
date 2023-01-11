@@ -10,4 +10,9 @@ public class BookReviewServiceImp implements BookReviewService{
         System.out.println("IS THIS BEING PRINGTED");
         return null;
     }
+
+    @Override
+    public List<BookReviewStatisticResponse> getReviewStatistics() {
+        return null;
+    }
 }

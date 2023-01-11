@@ -12,6 +12,7 @@ import org.springframework.test.web.servlet.MockMvc;
 import static org.mockito.BDDMockito.given;
 import static org.mockito.BDDMockito.then;
 import static org.mockito.Mockito.mock;
+import static org.springframework.security.test.web.servlet.request.SecurityMockMvcRequestPostProcessors.jwt;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.*;
 
 
@@ -69,5 +70,18 @@ class ReviewControllerTest {
 
         // Then
         then(bookReviewService).shouldHaveNoInteractions();
+    }
+
+    @Test
+    void shouldReturnReviewStatisticsWhenUserIsAuthenticated() throws Exception {
+        // Given
+
+        // When
+        mockMvc.perform(get("/api/books/reviews/statistics")
+                .with(jwt()))
+                .andExpect(status().isOk());
+
+        // Then
+        then(bookReviewService).should().getReviewStatistics();
     }
 }
