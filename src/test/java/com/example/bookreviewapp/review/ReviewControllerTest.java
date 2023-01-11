@@ -31,6 +31,9 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 @Import(WebSecurityConfig.class)
 class ReviewControllerTest {
 
+    private static final String BOOK_ISBN = "9780321160768";
+    private static final String USER_EMAIL = "john@spring.io";
+
     @MockBean
     private BookReviewService bookReviewService;
     @Autowired
@@ -98,22 +101,39 @@ class ReviewControllerTest {
         "rating": 4
       }
       """;
-        String isbn = "9780321160768";
-        String email = "john@spring.io";
         Long expectedBookReviewId = 84L;
 
-        given(bookReviewService.createBookReview(eq(isbn), any(BookReviewRequest.class),
-                eq(email))).willReturn(expectedBookReviewId);
+        given(bookReviewService.createBookReview(eq(BOOK_ISBN), any(BookReviewRequest.class),
+                eq(USER_EMAIL))).willReturn(expectedBookReviewId);
 
         // When
-        mockMvc.perform(post("/api/books/{isbn}/reviews", isbn)
+        mockMvc.perform(post("/api/books/{isbn}/reviews", BOOK_ISBN)
                 .contentType(MediaType.APPLICATION_JSON)
                 .content(requestBody)
-                .with(jwt().jwt(builder -> builder.claim("email", email)
+                .with(jwt().jwt(builder -> builder.claim("email", USER_EMAIL)
                         .claim("preferred_username", "john"))))
                 .andExpect(status().isCreated())
                 .andExpect(header().exists("Location"))
                 .andExpect(header().string("Location", containsString("/books/%s/reviews/%s"
-                        .formatted(isbn, expectedBookReviewId))));
+                        .formatted(BOOK_ISBN, expectedBookReviewId))));
+    }
+
+    @Test
+    void shouldRejectNewBookReviewForAuthenticatedUsersWithInvalidPayload() throws Exception {
+        // Given
+        String requestBody = """
+      {
+        "reviewContent": "I really like this book!",
+        "rating": -4
+      }
+      """;
+
+        // When
+        mockMvc.perform(post("/api/books/{isbn}/reviews", BOOK_ISBN)
+                .contentType(MediaType.APPLICATION_JSON)
+                .content(requestBody)
+                .with(jwt().jwt(builder -> builder.claim("email", USER_EMAIL)
+                        .claim("preferred_username", "john"))))
+                .andExpect(status().isUnprocessableEntity());
     }
 }
