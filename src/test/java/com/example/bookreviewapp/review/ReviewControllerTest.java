@@ -8,6 +8,7 @@ import org.springframework.boot.test.autoconfigure.web.servlet.WebMvcTest;
 import org.springframework.boot.test.mock.mockito.MockBean;
 import org.springframework.context.annotation.Import;
 import org.springframework.http.MediaType;
+import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.test.web.servlet.MockMvc;
 
 import static org.hamcrest.Matchers.containsString;
@@ -33,6 +34,7 @@ class ReviewControllerTest {
 
     private static final String BOOK_ISBN = "9780321160768";
     private static final String USER_EMAIL = "john@spring.io";
+    private static long BOOK_REVIEW_ID = 3L;
 
     @MockBean
     private BookReviewService bookReviewService;
@@ -135,5 +137,35 @@ class ReviewControllerTest {
                 .with(jwt().jwt(builder -> builder.claim("email", USER_EMAIL)
                         .claim("preferred_username", "john"))))
                 .andExpect(status().isUnprocessableEntity());
+
+        // Then
+        then(bookReviewService).shouldHaveNoInteractions();
+    }
+
+    @Test
+    void shouldNotAllowDeletingReviewsWhenUserIsAuthenticatedWithoutModeratorRole() throws Exception {
+        // Given
+
+        // When
+        mockMvc.perform(delete("/api/books/{isbn}/reviews/{reviewId}", BOOK_ISBN, BOOK_REVIEW_ID)
+                .with(jwt()))
+                .andExpect(status().isForbidden());
+
+        // Then
+        then(bookReviewService).shouldHaveNoInteractions();
+    }
+
+    @Test
+    void shouldAllowDeletingReviewsWhenUserIsAuthenticatedAndHasModeratorRole() throws Exception {
+        // Given
+
+        // When
+        mockMvc.perform(delete("/api/books/{isbn}/reviews/{bookReviewId}", BOOK_ISBN, BOOK_REVIEW_ID)
+                .with(jwt().authorities(new SimpleGrantedAuthority("ROLE_moderator"))))
+                .andExpect(status().isOk());
+
+        // Then
+        then(bookReviewService).should().deleteReview(BOOK_ISBN, BOOK_REVIEW_ID);
+
     }
 }

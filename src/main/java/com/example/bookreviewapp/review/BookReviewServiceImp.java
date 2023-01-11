@@ -20,4 +20,9 @@ public class BookReviewServiceImp implements BookReviewService{
     public Long createBookReview(String isbn, BookReviewRequest bookReviewRequest, String email) {
         return null;
     }
+
+    @Override
+    public void deleteReview(String bookIsbn, long bookReviewId) {
+
+    }
 }

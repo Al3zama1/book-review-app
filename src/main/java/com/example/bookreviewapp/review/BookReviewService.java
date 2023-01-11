@@ -11,4 +11,6 @@ public interface BookReviewService {
     List<BookReviewStatisticResponse> getReviewStatistics();
 
     Long createBookReview(String isbn, BookReviewRequest bookReviewRequest, String email);
+
+    void deleteReview(String bookIsbn, long bookReviewId);
 }

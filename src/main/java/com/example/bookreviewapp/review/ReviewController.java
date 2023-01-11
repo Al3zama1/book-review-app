@@ -44,4 +44,9 @@ public class ReviewController {
 
         return ResponseEntity.created(uriComponents.toUri()).build();
     }
+
+    @DeleteMapping("/{isbn}/reviews/{bookReviewId}")
+    public void deleteBookReview(@PathVariable String isbn, @PathVariable Long bookReviewId) {
+        bookReviewService.deleteReview(isbn, bookReviewId);
+    }
 }
