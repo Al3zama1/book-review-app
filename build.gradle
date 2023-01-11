@@ -28,6 +28,7 @@ dependencies {
 	implementation 'org.flywaydb:flyway-core'
 	developmentOnly 'org.springframework.boot:spring-boot-devtools'
 	compileOnly 'org.projectlombok:lombok:1.18.24'
+	annotationProcessor 'org.projectlombok:lombok:1.18.24'
 	runtimeOnly 'org.postgresql:postgresql'
 	testImplementation "com.github.tomakehurst:wiremock-jre8:2.35.0"
 	testImplementation 'org.testcontainers:junit-jupiter'
