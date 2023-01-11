@@ -15,4 +15,9 @@ public class BookReviewServiceImp implements BookReviewService{
     public List<BookReviewStatisticResponse> getReviewStatistics() {
         return null;
     }
+
+    @Override
+    public Long createBookReview(String isbn, BookReviewRequest bookReviewRequest, String email) {
+        return null;
+    }
 }

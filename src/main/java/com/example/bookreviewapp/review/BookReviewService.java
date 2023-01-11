@@ -9,4 +9,6 @@ public interface BookReviewService {
     List<ReviewResponse> getAllReviews(Integer size, String orderBy);
 
     List<BookReviewStatisticResponse> getReviewStatistics();
+
+    Long createBookReview(String isbn, BookReviewRequest bookReviewRequest, String email);
 }

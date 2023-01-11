@@ -7,8 +7,12 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.web.servlet.WebMvcTest;
 import org.springframework.boot.test.mock.mockito.MockBean;
 import org.springframework.context.annotation.Import;
+import org.springframework.http.MediaType;
 import org.springframework.test.web.servlet.MockMvc;
 
+import static org.hamcrest.Matchers.containsString;
+import static org.mockito.ArgumentMatchers.any;
+import static org.mockito.ArgumentMatchers.eq;
 import static org.mockito.BDDMockito.given;
 import static org.mockito.BDDMockito.then;
 import static org.mockito.Mockito.mock;
@@ -21,8 +25,7 @@ import java.util.List;
 
 import static org.junit.jupiter.api.Assertions.*;
 import static org.hamcrest.Matchers.is;
-import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.jsonPath;
-import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
+import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.*;
 
 @WebMvcTest(ReviewController.class)
 @Import(WebSecurityConfig.class)
@@ -83,5 +86,34 @@ class ReviewControllerTest {
 
         // Then
         then(bookReviewService).should().getReviewStatistics();
+    }
+
+    @Test
+    void shouldCreateNewBookReviewForAuthenticatedUserWithValidPayload() throws Exception {
+        // Given
+        String requestBody = """
+      {
+        "reviewTitle": "Great Java Book",
+        "reviewContent": "I really like this book!",
+        "rating": 4
+      }
+      """;
+        String isbn = "9780321160768";
+        String email = "john@spring.io";
+        Long expectedBookReviewId = 84L;
+
+        given(bookReviewService.createBookReview(eq(isbn), any(BookReviewRequest.class),
+                eq(email))).willReturn(expectedBookReviewId);
+
+        // When
+        mockMvc.perform(post("/api/books/{isbn}/reviews", isbn)
+                .contentType(MediaType.APPLICATION_JSON)
+                .content(requestBody)
+                .with(jwt().jwt(builder -> builder.claim("email", email)
+                        .claim("preferred_username", "john"))))
+                .andExpect(status().isCreated())
+                .andExpect(header().exists("Location"))
+                .andExpect(header().string("Location", containsString("/books/%s/reviews/%s"
+                        .formatted(isbn, expectedBookReviewId))));
     }
 }
